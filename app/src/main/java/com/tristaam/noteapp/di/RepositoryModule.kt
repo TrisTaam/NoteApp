@@ -1,9 +1,12 @@
 package com.tristaam.noteapp.di
 
+import com.tristaam.noteapp.data.repository.AuthRepositoryImpl
 import com.tristaam.noteapp.data.repository.NoteRepositoryImpl
 import com.tristaam.noteapp.data.repository.UserRepositoryImpl
 import com.tristaam.noteapp.data.source.local.roomdb.dao.NoteDao
 import com.tristaam.noteapp.data.source.local.roomdb.dao.UserDao
+import com.tristaam.noteapp.data.source.local.roomdb.sharedpref.NoteAppSharedPref
+import com.tristaam.noteapp.domain.repository.AuthRepository
 import com.tristaam.noteapp.domain.repository.NoteRepository
 import com.tristaam.noteapp.domain.repository.UserRepository
 import dagger.Module
@@ -25,5 +28,11 @@ class RepositoryModule {
     @Singleton
     fun provideNoteRepository(noteDao: NoteDao): NoteRepository {
         return NoteRepositoryImpl(noteDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAuthRepository(noteAppSharedPref: NoteAppSharedPref): AuthRepository {
+        return AuthRepositoryImpl(noteAppSharedPref)
     }
 }
